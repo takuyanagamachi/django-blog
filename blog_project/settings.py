@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'accounts',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -117,13 +118,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'あなたの@gmail.com'
-EMAIL_HOST_PASSWORD = 'あなたのアプリパスワード'
+EMAIL_HOST_USER = 'nagamachitakuya@gmail.com'
+EMAIL_HOST_PASSWORD = 'qmjaglisvypuqqlq'
 
-
-LOGIN_REDIRECT_URL = '/' # ログイン後の遷移先
-LOGOUT_REDIRECT_URL = '/' # ログアウト後の遷移先
-
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = (
    # Needed to login by username in Django admin, regardless of `allauth`
    "django.contrib.auth.backends.ModelBackend",
@@ -132,11 +131,15 @@ AUTHENTICATION_BACKENDS = (
    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
 SITE_ID = 1
 
-ACCOUNT_EMAIL_REQUIRED = True # Eメール必須
-ACCOUNT_USERNAME_REQUIRED = True # ユーザー名必須
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True # パスワード２回入力
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True 
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True 
 ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email' # Eメールで認証を行う
-ACCOUNT_UNIQUE_EMAIL = True # 一意なEメール
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True 
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'

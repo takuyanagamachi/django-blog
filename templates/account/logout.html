@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load account socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+
+  <div class="socialaccount_ballot">
+
+    <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+  </div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>まだアカウントをお持ちでない方は<a href="{{ account_signup_url }}">新規登録</a>してください</p>
+{% endif %}
+
+ <h1>ログアウト</h1>
+ <form method="post" action="{% url 'account_logout' %}">
+   {% csrf_token %}
+   {% if redirect_field_value %}
+   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+   {% endif %}
+   <button type="submit">ログアウト</button>
+ </form>
+{% endblock %}
