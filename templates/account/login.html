@@ -1,33 +1,32 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
 
 {% load account socialaccount %}
-
 {% get_providers as socialaccount_providers %}
-
 {% if socialaccount_providers %}
-
   <div class="socialaccount_ballot">
-
     <ul class="socialaccount_providers">
       {% include "socialaccount/snippets/provider_list.html" with process="login" %}
     </ul>
-
   </div>
-
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
 <p>まだアカウントをお持ちでない方は<a href="{{ account_signup_url }}">新規登録</a>してください</p>
 {% endif %}
 
-<h1>ログイン</h1>
+<h1 class="mt-5 pt-4 text-center">Login</h1>
 <form method="post">
- {% csrf_token %}
- {{ form.as_p }}
- <button type="submit">ログイン</button>
- <p><a class="button" href="{% url 'account_reset_password' %}">パスワードをお忘れですか？</a></p>
- <p><a class="button" href="{% url 'index' %}">トップページへ</a></p>
+{% csrf_token %}
+<label for="id_login" class="sr-only">メールアドレス</label>
+<input type="email" name="login" placeholder="メールアドレス" maxlength="254" class="form-control mb-3" required id="id_login">
+
+<label for="id_password" class="sr-only">パスワード</label>
+<input type="password" name="password" autocomplete="current-password" placeholder="パスワード" class="form-control mb-3" required id="id_password">
+
+<button type="submit" class="btn btn-block btn-outline-success">Login</button>
 </form>
+<p><a class="button" href="{% url 'account_reset_password' %}">パスワードをお忘れですか？</a></p>
+
 {% endblock %}

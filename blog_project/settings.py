@@ -31,6 +31,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'accounts',
     'allauth.socialaccount.providers.google',
+    'blog_app',
+    'django_cleanup',
+    'bootstrap4',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +61,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins':[ 
+               'bootstrap4.templatetags.bootstrap4',
+           ],
         },
     },
 ]
@@ -112,6 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # メール送信の設定
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -123,6 +133,7 @@ EMAIL_HOST_PASSWORD = 'qmjaglisvypuqqlq'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
 AUTHENTICATION_BACKENDS = (
    # Needed to login by username in Django admin, regardless of `allauth`
    "django.contrib.auth.backends.ModelBackend",

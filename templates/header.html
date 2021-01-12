@@ -1,0 +1,30 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="{% url 'blog_app:index' %}">ブログサイト</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">{{request.user.username}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'blog_app:add' %}">投稿</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_signup' %}">新規登録</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

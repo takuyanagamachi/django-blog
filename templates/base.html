@@ -1,13 +1,21 @@
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
- <meta charset="utf-8">
- <title>{% block title %}Django練習{% endblock %}</title>
-</head>
-<body>
- <main>
-   {% block content %}
-   {% endblock %}
- </main>
-</body>
+<html lang="ja">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="description" content=""/>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+   <title>Blog</title>
+ </head>
+ <body>
+  {% include 'header.html' %}
+ <div class="container">
+  {% block content %} 
+  {% endblock %} 
+</div>
+{% include 'footer.html' %}
+
+ </body>
 </html>
