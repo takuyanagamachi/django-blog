@@ -1,5 +1,6 @@
 
-* {
+html {
+  margin-top: 40px;
   min-height: 100vh;
   position: relative;
   padding-bottom: 120px;
