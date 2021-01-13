@@ -5,5 +5,5 @@ app_name = 'accounts'
 urlpatterns = [
   path('detail/<int:pk>/', views.detail, name='detail'),
   path('edit/<int:pk>/', views.edit, name='edit'),
-  path('delete/<int:pk>/', views.delete, name='delete') #追加
+  path('delete/<int:pk>/', views.delete, name='delete')
 ]

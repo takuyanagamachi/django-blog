@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}   
+
+<header class="contact-masthead">
+  <div class="container h-50 align-items-center justify-content-center">    
+      <h1 class="text-white font-weight-bold text-center">お問い合わせ</h1>
+      <hr class="my-4"/>
+  </div>
+</header>
+
+<div class="container my-5">
+<form action="{% url 'blog_app:contact' %}" method="POST">
+ {% csrf_token %}
+ <label for="id_name" class="sr-only">お名前</label>
+ <input class="form-control mb-3" name="name" maxlength="50" required="" id="id_name" type="text" placeholder="お名前">
+
+ <label for="id_email" class="sr-only">メールアドレス</label>
+ <input type="email" name="email" required="" id="id_email" placeholder="メールアドレス" class="form-control mb-3">
+
+ <label for="id_message" class="sr-only">メッセージ:</label>
+ <textarea name="message" style="height: 300px;" cols="40" rows="10" required="" id="id_message" placeholder="メッセージ" class="form-control mb-3"></textarea>
+
+<button type="submit" class="btn btn-block btn-outline-success">送信する</button>
+</form>
+</div>
+{% endblock %}
