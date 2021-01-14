@@ -1,0 +1,29 @@
+<div class="container">
+
+   <h2 class="text-center text-secondary my-4">コメント一覧({{comments.count}})</h2>
+  
+   {% for comment in comments %}
+   <blockquote class="blockquote blockquote-reverse" id="posts">
+     <p class="mb-0">{{comment.text }}</p>
+     <p>{{ comment.user.username }} / {{comment.created_at|date:"Y年n月j日"}}
+  
+     {% if request.user == post.user or request.user == comment.user %}
+     <a href="{% url 'blog_app:comment_delete' comment_id=comment.id %}"> <i class="text-danger far fa-trash-alt"></i></a>
+   </p>
+     {% endif %}
+     </footer>
+   </blockquote>
+   <hr>
+   {% empty %}
+     <p class="text-secondary text-center">コメントはありません。</p>
+   {% endfor %}
+  </div>
+  
+  {% if request.user.is_authenticated %}
+  <form method="POST" action="." class="comment-form form-inline fixed-bottom mb-0">
+   {% csrf_token %}
+   <button type="submit" class="btn-sm btn-outline-secondary col-1">投稿</button>
+   <label class="sr-only" for="id_text">コメント</label>
+   <textarea name="text" class="form-control-sm col-11"　placeholder="コメントする..." required="true" id="id_text"></textarea>
+  </form>
+  {% endif %}

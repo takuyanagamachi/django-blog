@@ -1,13 +1,15 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Tag
-from .forms import PostAddForm, ContactForm
+from .models import Post, Tag, Comment
+from .forms import PostAddForm, ContactForm, CmtForm
 from django.contrib.auth.decorators import login_required
 import textwrap
 from django.conf import settings
 from django.core.mail import BadHeaderError, EmailMessage
 from django.http import HttpResponse
 from django.views.generic import View
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
 def index(request):
@@ -15,8 +17,26 @@ def index(request):
    return render(request, 'blog_app/index.html', {'posts': posts})
 
 def detail(request, post_id):
-     post = get_object_or_404(Post, id=post_id)
-     return render(request, 'blog_app/detail.html', {'post': post})
+   post = get_object_or_404(Post, id=post_id)
+   comments = Comment.objects.filter(post=post).order_by('-created_at')
+   if request.method == "POST":
+       form = CmtForm(request.POST or None)
+       if form.is_valid():
+           text = request.POST.get('text')
+           comment = Comment.objects.create(post=post, user=request.user, text=text)
+           comment.save()
+   else:
+       form = CmtForm()
+   context = {
+       'post': post,
+       'comments': comments,
+       'form': form,
+   }
+   if request.is_ajax():
+       html = render_to_string('blog_app/comment.html', context, request=request )
+       return JsonResponse({'form': html})    
+   return render(request, 'blog_app/detail.html', {'post': post, 'form': form, 'comments': comments})
+
 
 @login_required
 def add(request):
@@ -106,4 +126,9 @@ class ContactView(View):
 
 class DoneViews(View):
   def get(self, request, *args, **kwargs):   
-      return render(request, 'blog_app/done.html')  
+      return render(request, 'blog_app/done.html')
+
+def comment_delete(request, comment_id):
+   comment = get_object_or_404(Comment, id=comment_id)
+   comment.delete()
+   return redirect('blog_app:detail', post_id=comment.post.id)

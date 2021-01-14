@@ -14,7 +14,15 @@ class Post(models.Model):
    text = models.TextField('本文')
    image = models.ImageField('画像', upload_to = 'images', blank=True)
    created_at = models.DateTimeField('投稿日', default=timezone.now)
-   tag = models.ForeignKey(Tag, verbose_name = 'タグ', on_delete=models.PROTECT) #追加
+   tag = models.ForeignKey(Tag, verbose_name = 'タグ', on_delete=models.PROTECT)
    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
    def __str__(self):
        return self.title
+
+class Comment(models.Model):
+   text = models.TextField('コメント')
+   post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+   created_at = models.DateTimeField('投稿日', default=timezone.now)
+   def __str__(self):
+       return self.text
