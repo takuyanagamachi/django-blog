@@ -10,11 +10,32 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
    posts = Post.objects.all().order_by('-created_at')
-   return render(request, 'blog_app/index.html', {'posts': posts})
+   query = request.GET.get('q')
+   if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(text__icontains=query) |
+            Q(user__username__icontains=query)
+        ).distinct()
+
+   paginator = Paginator(posts, 2)
+   page = request.GET.get('page')
+
+   try:
+        posts = paginator.page(page)
+   except PageNotAnInteger:
+        posts = paginator.page(1)
+   except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+   return render(request, 'blog_app/index.html', {'posts': posts})  
+
 
 def detail(request, post_id):
    post = get_object_or_404(Post, id=post_id)

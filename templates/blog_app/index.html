@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
-
+{% block title %} 記事一覧-{{ block.super }}{% endblock %}
 
 {% block content %}
+
 <h1 class="text-center">ブログサイト</h1>
 
 {% if user.is_authenticated %}
@@ -28,8 +29,6 @@
          {{ post.text|truncatechars:17 }}
        </p>
      </a>
-       <p>#{{post.tag}}</p>
-       <p>{{post.created_at}}</p>
        <p></p>
        <p>#{{post.tag}}</p>
        <p>{{post.created_at}} |
@@ -38,4 +37,5 @@
   </div>
   {% endfor %}
   </div>
+  {% include 'page.html' %}
 {% endblock %}

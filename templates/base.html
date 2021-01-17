@@ -8,7 +8,7 @@
    <meta name="description" content=""/>
    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
-   <title>Blog</title>
+   <title>{% block title %} ブログ {% endblock %}</title>
  </head>
  <body>
   {% include 'header.html' %}

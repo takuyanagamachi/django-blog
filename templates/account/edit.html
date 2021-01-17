@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% block title %} ユーザー編集-{{ block.super }}{% endblock %}
+
 {% block content %}
+
 <h1 class="text-center">{{user.username}}を編集</h1>
  <form class="form-signin" method="post">
    {% csrf_token %}
