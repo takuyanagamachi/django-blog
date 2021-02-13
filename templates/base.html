@@ -20,6 +20,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script type="text/javascript">
 $(document).ready(function(event){
 
@@ -39,7 +40,23 @@ $(document).ready(function(event){
     },
    });
  });
+ var obj1 = document.getElementById("id_image");
+
+obj1.addEventListener("change", function(e){
+  var file = e.target.files;
+  var reader = new FileReader();
+  
+  reader.readAsDataURL(file[0]);
+  
+  reader.onload = function(){
+    var imagePreview = reader.result;
+    document.getElementById("preview").innerHTML = "<img class='container' src='" + imagePreview + "'>";
+  }
+},false);
+ 
+
 });
 </script>
+
  </body>
 </html>

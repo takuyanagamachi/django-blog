@@ -14,10 +14,14 @@
  <label for="id_text" class="sr-only">本文</label>
  <textarea type="text" name="text" placeholder="本文" cols="40" rows="10" class="form-control mb-3" required id="id_text"></textarea>
 
- <div class="mb-3 form-control text-secondary">
-   <label>画像</label>
-       {{ form.image }}
- </div>
+ 
+  <label class="mb-3 h-auto form-control btn btn-outline-success">
+    クリックで画像を選択<br>
+    <small>JPEG/PNG/JPGに対応しています</small>
+      <input type="file" name="image" accept="image/*" id="id_image">
+  </label>
+
+<div class="mb-3" id="preview"></div>
 
      
  <div class="mb-3">
@@ -27,5 +31,4 @@
 
  <button type="submit" class="btn btn-block btn-outline-success">投稿する</button>
 </form>
-
 {% endblock %}

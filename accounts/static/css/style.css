@@ -6,6 +6,16 @@ html {
   padding-bottom: 120px;
  }
  
+/* add.html */
+input[type="file"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
  footer{
   width: 100%;
   background-color: #f3f3f3;
